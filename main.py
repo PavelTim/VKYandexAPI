@@ -1,4 +1,4 @@
-
+import json
 import datetime as dd
 
 from yadiskdel import YaDiskDel
@@ -33,6 +33,9 @@ def main():
 
     for index_, item in enumerate(resultvk['response']['items']):
 
+        if index_ >= n_photos:
+            break
+
         name = str(item['likes']['count']) + str(index_)
 
         if name in names:
@@ -51,10 +54,8 @@ def main():
         dict_log = {"file_name": name + ".jpg", "size": size_image, "response": yanuploadresult}
         list_log.append(dict_log)
 
-        if index_ >= n_photos:
-            break
-
-
+    with open('logfile.json', 'w') as f:
+        json.dump(list_log, f)
 
 
 if __name__ == '__main__':
